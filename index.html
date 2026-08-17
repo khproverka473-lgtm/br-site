@@ -53,4 +53,320 @@
     z-index:0;
     background:
       radial-gradient(circle at 20% 10%, rgba(255,255,255,0.10), transparent 55%),
-      radial-gradient(circle at 85% 20%, rgba(255,2
+      radial-gradient(circle at 85% 20%, rgba(255,255,255,0.06), transparent 50%),
+      radial-gradient(circle at 30% 95%, rgba(255,255,255,0.05), transparent 55%),
+      linear-gradient(160deg, var(--bg-1), var(--bg-2) 55%, #000000 100%);
+    overflow:hidden;
+  }
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(70px);
+    opacity:0.5;
+    background:radial-gradient(circle, rgba(255,255,255,0.35), transparent 70%);
+    animation:drift 24s ease-in-out infinite alternate;
+  }
+  .blob.b1{width:280px;height:280px; top:-70px; left:-70px; animation-duration:27s;}
+  .blob.b2{width:240px;height:240px; top:42%; right:-100px; animation-duration:21s;}
+  .blob.b3{width:260px;height:260px; bottom:-100px; left:8%; animation-duration:25s;}
+
+  @keyframes drift{
+    from{ transform:translate(0,0) scale(1); }
+    to{ transform:translate(22px,-26px) scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .blob{animation:none;}
+  }
+
+  .app{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:430px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:calc(100vh - 52px);
+    min-height:calc(100dvh - 52px);
+    gap:34px;
+  }
+
+  .logo{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+  }
+  .logo-badge{
+    width:78px;
+    height:78px;
+    border-radius:24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(145deg, rgba(255,255,255,0.20), rgba(255,255,255,0.03));
+    border:1px solid var(--glass-border);
+    backdrop-filter:blur(20px) saturate(120%);
+    -webkit-backdrop-filter:blur(20px) saturate(120%);
+    box-shadow:0 10px 34px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  .logo-badge span{
+    font-size:30px;
+    font-weight:800;
+    letter-spacing:-0.5px;
+    background:linear-gradient(135deg, var(--silver-a), var(--silver-b));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .logo-tag{
+    font-size:12.5px;
+    color:var(--text-dim);
+    letter-spacing:0.3px;
+  }
+
+  .card{
+    width:100%;
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    border-radius:26px;
+    backdrop-filter:blur(24px) saturate(130%);
+    -webkit-backdrop-filter:blur(24px) saturate(130%);
+    box-shadow:0 10px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.12);
+    padding:10px;
+  }
+
+  .input-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(0,0,0,0.35);
+    border:1px solid rgba(255,255,255,0.10);
+    border-radius:18px;
+    padding:6px 6px 6px 18px;
+    transition:box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .input-row.error{
+    border-color:rgba(255,107,107,0.55);
+    box-shadow:0 0 0 3px rgba(255,107,107,0.12);
+  }
+  .input-row input{
+    flex:1;
+    min-width:0;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--text);
+    font-size:16px;
+    padding:13px 0;
+  }
+  .input-row input::placeholder{ color:rgba(242,242,242,0.28); }
+
+  .go-btn{
+    flex-shrink:0;
+    width:42px;
+    height:42px;
+    border-radius:14px;
+    border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg, var(--silver-a), var(--silver-b));
+    color:#0c0c0d;
+    font-size:18px;
+    transition:transform 0.15s ease, opacity 0.15s ease;
+  }
+  .go-btn:active{ transform:scale(0.92); }
+  .go-btn:disabled{ opacity:0.4; }
+
+  .scale-wrap{
+    width:100%;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .scale-wrap.show{ display:flex; }
+  .scale-track{
+    width:100%;
+    height:5px;
+    border-radius:6px;
+    background:rgba(255,255,255,0.10);
+    overflow:hidden;
+  }
+  .scale-fill{
+    height:100%;
+    width:0%;
+    border-radius:6px;
+    background:linear-gradient(90deg, var(--silver-b), var(--silver-a));
+    transition:width 0.25s ease;
+  }
+  .scale-pct{
+    font-size:13px;
+    font-weight:600;
+    color:var(--text-dim);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .result-wrap{
+    width:100%;
+    display:none;
+    align-items:center;
+    justify-content:center;
+  }
+  .result-wrap.show{ display:flex; }
+  .result-link{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:24px;
+    color:#0c0c0d;
+    background:linear-gradient(135deg, var(--silver-a), var(--silver-b));
+    box-shadow:0 8px 26px rgba(0,0,0,0.55);
+  }
+  .result-link:active{ transform:scale(0.94); }
+
+  footer{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    padding-top:6px;
+  }
+  footer p{
+    margin:0;
+    font-size:13px;
+    color:rgba(242,242,242,0.35);
+    font-style:italic;
+    letter-spacing:0.2px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="bg">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <div class="app">
+    <div class="logo">
+      <div class="logo-badge"><span>BR</span></div>
+      <div class="logo-tag">🤙 На связи</div>
+    </div>
+
+    <div class="card">
+      <div class="input-row" id="input-row">
+        <input id="url-input" type="url" inputmode="url" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+        <button class="go-btn" id="download-btn" type="button">➤</button>
+      </div>
+    </div>
+
+    <div class="scale-wrap" id="scale-wrap">
+      <div class="scale-track"><div class="scale-fill" id="scale-fill"></div></div>
+      <div class="scale-pct" id="scale-pct">0%</div>
+    </div>
+
+    <div class="result-wrap" id="result-wrap">
+      <a class="result-link" id="result-link" href="#" download target="_blank" rel="noopener">⬇</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Դե 1000 դրամ կտաս ախպերս ✌️</p>
+  </footer>
+
+<script>
+(function(){
+  const urlInput = document.getElementById('url-input');
+  const inputRow = document.getElementById('input-row');
+  const downloadBtn = document.getElementById('download-btn');
+  const scaleWrap = document.getElementById('scale-wrap');
+  const scaleFill = document.getElementById('scale-fill');
+  const scalePct = document.getElementById('scale-pct');
+  const resultWrap = document.getElementById('result-wrap');
+  const resultLink = document.getElementById('result-link');
+
+  let progressTimer = null;
+  let currentPct = 0;
+
+  function flashError(){
+    inputRow.classList.add('error');
+    setTimeout(() => inputRow.classList.remove('error'), 900);
+  }
+
+  function startProgress(){
+    scaleWrap.classList.add('show');
+    resultWrap.classList.remove('show');
+    currentPct = 0;
+    scalePct.textContent = '0%';
+    scaleFill.style.width = '0%';
+    progressTimer = setInterval(() => {
+      if(currentPct < 90){
+        currentPct += Math.random() * 6;
+        if(currentPct > 90) currentPct = 90;
+        scalePct.textContent = Math.floor(currentPct) + '%';
+        scaleFill.style.width = currentPct + '%';
+      }
+    }, 220);
+  }
+  function finishProgress(){
+    clearInterval(progressTimer);
+    currentPct = 100;
+    scalePct.textContent = '100%';
+    scaleFill.style.width = '100%';
+  }
+
+  function isLikelyTikTokUrl(v){
+    return /tiktok\.com|vt\.tiktok|vm\.tiktok/i.test(v);
+  }
+
+  downloadBtn.addEventListener('click', async () => {
+    const link = urlInput.value.trim();
+
+    if(!link || !isLikelyTikTokUrl(link)){
+      flashError();
+      return;
+    }
+
+    downloadBtn.disabled = true;
+    startProgress();
+
+    try{
+      const res = await fetch('/.netlify/functions/download?url=' + encodeURIComponent(link));
+      const data = await res.json();
+
+      if(!res.ok || !data.success){
+        throw new Error(data.error || 'error');
+      }
+
+      finishProgress();
+
+      setTimeout(() => {
+        scaleWrap.classList.remove('show');
+        resultLink.href = data.videoUrl;
+        resultWrap.classList.add('show');
+      }, 300);
+
+    }catch(err){
+      clearInterval(progressTimer);
+      scaleWrap.classList.remove('show');
+      flashError();
+    }finally{
+      downloadBtn.disabled = false;
+    }
+  });
+
+  urlInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter'){ downloadBtn.click(); }
+  });
+})();
+</script>
+
+</body>
+</html>
