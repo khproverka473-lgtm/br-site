@@ -400,6 +400,18 @@
   });
 })();
 </script>
-
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js")
+      .then(registration => {
+        console.log("BR App: Service Worker registered", registration.scope);
+      })
+      .catch(error => {
+        console.error("BR App: Service Worker registration failed", error);
+      });
+  });
+}
+</script>
 </body>
 </html>
