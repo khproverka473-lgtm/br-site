@@ -346,7 +346,7 @@
 
   function triggerDownload(url){
     if(isIOS()){
-      window.open(url, '_blank');
+      window.location.href = url;
     }else{
       const a = document.createElement('a');
       a.href = url;
