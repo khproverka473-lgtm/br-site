@@ -344,9 +344,26 @@
     return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
   }
 
+  async function iosShareSave(url){
+    try{
+      if(navigator.canShare){
+        const res = await fetch(url);
+        const blob = await res.blob();
+        const file = new File([blob], 'br-video.mp4', { type: blob.type || 'video/mp4' });
+        if(navigator.canShare({ files: [file] })){
+          await navigator.share({ files: [file] });
+          return;
+        }
+      }
+    }catch(e){
+      // CORS или не поддерживается - переходим на запасной вариант
+    }
+    window.location.href = url;
+  }
+
   function triggerDownload(url){
     if(isIOS()){
-      window.location.href = url;
+      iosShareSave(url);
     }else{
       const a = document.createElement('a');
       a.href = url;
